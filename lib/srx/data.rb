@@ -7,7 +7,6 @@ module Srx
   class XmlWrapper
     NS = { 'srx' => 'http://www.lisa.org/srx20' }.freeze
 
-    # @param xml [Nokogiri::XML::Node]
     def initialize(xml)
       @xml = xml
     end
