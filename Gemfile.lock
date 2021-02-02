@@ -33,9 +33,9 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
-  minitest (~> 5.0)
-  rake (~> 13.0)
-  rubocop (~> 1.7)
+  minitest
+  rake
+  rubocop
   srx!
 
 BUNDLED WITH
