@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     srx (0.1.0)
+      nokogiri (~> 1.11)
 
 GEM
   remote: https://rubygems.org/
