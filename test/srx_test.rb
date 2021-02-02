@@ -2,12 +2,10 @@
 
 require 'test_helper'
 
-class SrxTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::Srx::VERSION
-  end
-
-  def test_it_does_something_useful
-    assert false
+module Srx
+  class SrxTest < Minitest::Test
+    def test_that_it_has_a_version_number
+      refute_nil(VERSION)
+    end
   end
 end
