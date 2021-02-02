@@ -83,13 +83,13 @@ module Srx
       #   <formathandle type="end" include="yes"/>
       #   <formathandle type="isolated" include="no"/>
       case type
-      when :start then false
+      when %i[start isolated] then false
       when :end then true
-      when :isolated then false
       else raise(ArgumentError, "Unknown formatting type: #{type}")
       end
     end
 
+    # SRX <languagerule> element
     class LanguageRule < XmlWrapper
       # @return [String]
       def name
@@ -101,6 +101,7 @@ module Srx
         xpath(:rule).map { |rule| Rule.new(rule) }
       end
 
+      # SRX <rule> element
       class Rule < XmlWrapper
         def break?
           @xml['break'] == 'yes'
@@ -118,6 +119,7 @@ module Srx
       end
     end
 
+    # SRX <languagemap> element
     class LanguageMap < XmlWrapper
       # @return [String]
       def language_rule_name
