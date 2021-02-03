@@ -61,14 +61,14 @@
             <languagerule languagerulename="Japanese">
                 <!-- Rules for breaking on Japanese punctuation
 
-                \xff61: Halfwidth ideographic full stop
-                \x3002: Ideographic full stop
-                \xff0e: Fullwidth full stop
-                \xff1f: Fullwidth question mark
-                \xff01: Fullwidth exclamation mark
+                \uff61: Halfwidth ideographic full stop
+                \u3002: Ideographic full stop
+                \uff0e: Fullwidth full stop
+                \uff1f: Fullwidth question mark
+                \uff01: Fullwidth exclamation mark
                 -->
                 <rule break="yes">
-                    <beforebreak>[\xff61\x3002\xff0e\xff1f\xff01]+</beforebreak>
+                    <beforebreak>[\uff61\u3002\uff0e\uff1f\uff01]+</beforebreak>
                     <afterbreak></afterbreak>
                 </rule>
             </languagerule>
