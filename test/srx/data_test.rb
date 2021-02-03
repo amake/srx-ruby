@@ -36,8 +36,8 @@ module Srx
       rule = sample_srx.language_rules.first.rules.first
 
       refute(rule.break?)
-      assert_equal(%q(^\s*[0-9]+\.), rule.before_break)
-      assert_equal(%q(\s), rule.after_break)
+      assert_equal(/^\s*[0-9]+\./, rule.before_break)
+      assert_equal(/\s/, rule.after_break)
     end
 
     def test_maprules
@@ -49,7 +49,7 @@ module Srx
       english = sample_srx.map_rules.first
 
       assert_equal('English', english.language_rule_name)
-      assert_equal('[Ee][Nn].*', english.language_pattern)
+      assert_equal(/[Ee][Nn].*/, english.language_pattern)
     end
 
     private

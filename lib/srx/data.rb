@@ -107,14 +107,18 @@ module Srx
           @xml['break'] == 'yes'
         end
 
-        # @return [String,nil]
+        # @return [Regexp,nil]
         def before_break
-          xpath(:beforebreak)&.text
+          xpath(:beforebreak).first&.text.then do |pattern|
+            Regexp.new(pattern) if pattern
+          end
         end
 
-        # @return [String,nil]
+        # @return [Regexp,nil]
         def after_break
-          xpath(:afterbreak)&.text
+          xpath(:afterbreak).first&.text.then do |pattern|
+            Regexp.new(pattern) if pattern
+          end
         end
       end
     end
@@ -126,9 +130,11 @@ module Srx
         @xml['languagerulename']
       end
 
-      # @return [String]
+      # @return [Regexp]
       def language_pattern
-        @xml['languagepattern']
+        @xml['languagepattern'].then do |pattern|
+          Regexp.new(pattern) if pattern
+        end
       end
     end
   end
