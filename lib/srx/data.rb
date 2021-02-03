@@ -109,7 +109,7 @@ module Srx
       # SRX <rule> element
       class Rule < XmlWrapper
         def break?
-          @xml['break'] == 'yes'
+          @xml['break'].nil? || @xml['break'] == 'yes'
         end
 
         # @return [Regexp,nil]
