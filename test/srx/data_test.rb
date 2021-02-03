@@ -22,10 +22,10 @@ module Srx
     end
 
     def test_languagerules
-      languagerules = sample_srx.languagerules
-      refute(languagerules.empty?)
+      language_rules = sample_srx.language_rules
+      refute(language_rules.empty?)
 
-      default = languagerules.first
+      default = language_rules.first
       assert_equal('Default', default.name)
 
       rules = default.rules
@@ -33,7 +33,7 @@ module Srx
     end
 
     def test_rule
-      rule = sample_srx.languagerules.first.rules.first
+      rule = sample_srx.language_rules.first.rules.first
 
       refute(rule.break?)
       assert_equal(%q(^\s*[0-9]+\.), rule.before_break)
@@ -41,12 +41,12 @@ module Srx
     end
 
     def test_maprules
-      maprules = sample_srx.maprules
-      refute(maprules.empty?)
+      map_rules = sample_srx.map_rules
+      refute(map_rules.empty?)
     end
 
     def test_languagemap
-      english = sample_srx.maprules.first
+      english = sample_srx.map_rules.first
 
       assert_equal('English', english.language_rule_name)
       assert_equal('[Ee][Nn].*', english.language_pattern)

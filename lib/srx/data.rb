@@ -50,13 +50,13 @@ module Srx
     end
 
     # @return [Array<LanguageRule>]
-    def languagerules
+    def language_rules
       xpath(:srx, :body, :languagerules, :languagerule)
         .map { |langrule| LanguageRule.new(langrule) }
     end
 
     # @return [Array<LanguageMap>]
-    def maprules
+    def map_rules
       xpath(:srx, :body, :maprules, :languagemap)
         .map { |maprule| LanguageMap.new(maprule) }
     end
