@@ -45,6 +45,15 @@ module Srx
     end
     # rubocop:enable Style/RedundantRegexpEscape
 
+    def test_segment
+      engine = sample_engine
+
+      assert_equal(
+        ['a.', ' b?', ' c!', ' d.'],
+        engine.segment('a. b? c! d.', lang_code: 'zz')
+      )
+    end
+
     private
 
     def sample_engine
