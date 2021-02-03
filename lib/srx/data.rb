@@ -22,6 +22,11 @@ module Srx
   # SRX data
   class Data < XmlWrapper
     class << self
+      # @param path [String]
+      def from_file(path:)
+        File.open(path) { |f| from_io(f) }
+      end
+
       # @param io [IO]
       # @return [Data]
       def from_io(io)

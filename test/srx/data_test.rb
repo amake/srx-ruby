@@ -55,7 +55,7 @@ module Srx
     private
 
     def sample_srx
-      File.open('test/srx-20-sample.srx') { |f| Data.from_io(f) }
+      Data.from_file(path: 'test/srx-20-sample.srx')
     end
   end
 end
