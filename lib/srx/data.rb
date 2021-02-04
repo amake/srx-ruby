@@ -56,20 +56,22 @@ module Srx
 
     # @return [Array<LanguageRule>]
     def language_rules
-      xpath(:srx, :body, :languagerules, :languagerule)
+      @language_rules ||=
+        xpath(:srx, :body, :languagerules, :languagerule)
         .map { |langrule| LanguageRule.new(langrule) }
     end
 
     # @return [Array<LanguageMap>]
     def map_rules
-      xpath(:srx, :body, :maprules, :languagemap)
+      @map_rules ||=
+        xpath(:srx, :body, :maprules, :languagemap)
         .map { |maprule| LanguageMap.new(maprule) }
     end
 
     private
 
     def header
-      xpath(:srx, :header).first
+      @header ||= xpath(:srx, :header).first
     end
 
     # @param type [Symbol]
@@ -103,25 +105,25 @@ module Srx
 
       # @return [Array<Rule>]
       def rules
-        xpath(:rule).map { |rule| Rule.new(rule) }
+        @rules ||= xpath(:rule).map { |rule| Rule.new(rule) }
       end
 
       # SRX <rule> element
       class Rule < XmlWrapper
         def break?
-          @xml['break'].nil? || @xml['break'] == 'yes'
+          @break ||= @xml['break'].nil? || @xml['break'] == 'yes'
         end
 
         # @return [Regexp,nil]
         def before_break
-          xpath(:beforebreak).first&.text.then do |pattern|
+          @before_break ||= xpath(:beforebreak).first&.text.then do |pattern|
             IcuRegex.compile(pattern) if pattern
           end
         end
 
         # @return [Regexp,nil]
         def after_break
-          xpath(:afterbreak).first&.text.then do |pattern|
+          @after_break ||= xpath(:afterbreak).first&.text.then do |pattern|
             IcuRegex.compile(pattern) if pattern
           end
         end
