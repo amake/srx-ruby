@@ -148,7 +148,7 @@ module Srx
 
       # @return [Regexp]
       def language_pattern
-        @xml['languagepattern'].then do |pattern|
+        @language_pattern ||= @xml['languagepattern'].then do |pattern|
           IcuRegex.compile(pattern) if pattern
         end
       end
