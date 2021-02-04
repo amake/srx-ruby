@@ -115,14 +115,14 @@ module Srx
         # @return [Regexp,nil]
         def before_break
           xpath(:beforebreak).first&.text.then do |pattern|
-            Regexp.new(pattern) if pattern
+            IcuRegex.compile(pattern) if pattern
           end
         end
 
         # @return [Regexp,nil]
         def after_break
           xpath(:afterbreak).first&.text.then do |pattern|
-            Regexp.new(pattern) if pattern
+            IcuRegex.compile(pattern) if pattern
           end
         end
       end
@@ -138,7 +138,7 @@ module Srx
       # @return [Regexp]
       def language_pattern
         @xml['languagepattern'].then do |pattern|
-          Regexp.new(pattern) if pattern
+          IcuRegex.compile(pattern) if pattern
         end
       end
     end
