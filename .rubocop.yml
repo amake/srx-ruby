@@ -4,6 +4,8 @@ AllCops:
   TargetRubyVersion: 2.4
   SuggestExtensions: false
   NewCops: enable
+  Exclude:
+    - '**/*~'
 
 Layout/LineLength:
   Max: 120
