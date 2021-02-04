@@ -110,22 +110,31 @@ module Srx
 
       # SRX <rule> element
       class Rule < XmlWrapper
-        def break?
-          @break ||= @xml['break'].nil? || @xml['break'] == 'yes'
-        end
+        # @return [Regexp,nil]
+        attr_reader :before_break
 
         # @return [Regexp,nil]
-        def before_break
-          @before_break ||= xpath(:beforebreak).first&.text.then do |pattern|
+        attr_reader :after_break
+
+        def initialize(xml)
+          super(xml)
+
+          # Eagerly load everything for this class because before_break and
+          # after_break can be legitimately nil, so lazy loading gets ugly.
+
+          @break = @xml['break'].nil? || @xml['break'] == 'yes'
+
+          @before_break = xpath(:beforebreak).first&.text.then do |pattern|
             IcuRegex.compile(pattern) if pattern
           end
-        end
 
-        # @return [Regexp,nil]
-        def after_break
           @after_break ||= xpath(:afterbreak).first&.text.then do |pattern|
             IcuRegex.compile(pattern) if pattern
           end
+        end
+
+        def break?
+          @break
         end
       end
     end
