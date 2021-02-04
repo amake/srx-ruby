@@ -52,6 +52,28 @@ module Srx
         ['a.', ' b?', ' c!', ' d.'],
         engine.segment('a. b? c! d.', lang_code: 'zz')
       )
+
+      assert_equal(
+        ['The U.K. Prime Minister, Mr. Blair, was seen out with his family today.'],
+        engine.segment('The U.K. Prime Minister, Mr. Blair, was seen out with his family today.', lang_code: 'en')
+      )
+
+      assert_equal(
+        ['The U.K.', ' Prime Minister, Mr.', ' Blair, was seen out with his family today.'],
+        engine.segment('The U.K. Prime Minister, Mr. Blair, was seen out with his family today.', lang_code: 'zz')
+      )
+
+      text = File.open('LICENSE.txt', &:read).strip
+      segments = engine.segment(text, lang_code: 'en')
+      assert_equal(23, segments.length)
+      assert_equal("The MIT License (MIT)\n", segments.first)
+      assert_equal(<<~TXT.chomp, segments.last)
+         IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+        THE SOFTWARE.
+      TXT
     end
 
     private
