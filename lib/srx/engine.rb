@@ -64,6 +64,7 @@ module Srx
         .group_by(&:first)
         .transform_values { |pairs| pairs.first.last }
         .select { |_pos, rule| rule.break? }
+        .sort_by(&:first)
     end
 
     # @param str [String]
