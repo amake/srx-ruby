@@ -4,6 +4,7 @@
 require 'bundler/setup'
 require 'srx'
 require 'benchmark'
+require 'memory_profiler'
 
 srx_file_path = File.expand_path('../test/srx-20-sample.srx', __dir__)
 data = Srx::Data.from_file(path: srx_file_path)
@@ -12,6 +13,13 @@ engine = Srx::Engine.new(data)
 text = File.open(File.expand_path('../LICENSE.txt', __dir__), &:read).strip
 
 n = 1_000
+
+report = MemoryProfiler.report do
+  n.times { engine.segment(text, lang_code: 'en') }
+end
+
+report.pretty_print
+
 Benchmark.bm do |x|
   x.report('LICENSE.txt (en)') { n.times { engine.segment(text, lang_code: 'en') } }
   x.report('LICENSE.txt (zz)') { n.times { engine.segment(text, lang_code: 'zz') } }

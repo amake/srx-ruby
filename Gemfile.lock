@@ -17,6 +17,7 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
+    memory_profiler (1.0.0)
     minitest (5.14.3)
     nokogiri (1.11.1-x86_64-darwin)
       racc (~> 1.4)
@@ -66,6 +67,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  memory_profiler
   minitest
   rake
   rubocop
