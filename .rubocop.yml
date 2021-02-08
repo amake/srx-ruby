@@ -9,3 +9,5 @@ AllCops:
 
 Layout/LineLength:
   Max: 120
+  Exclude:
+    - 'test/srx/golden_rules_test.rb'
