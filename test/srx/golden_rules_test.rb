@@ -421,9 +421,4 @@ class GoldenRulesTest < Minitest::Test
   def segment(text:, language:, **_kwargs)
     sample_engine.segment(text, lang_code: language).map(&:strip)
   end
-
-  def sample_engine
-    data = File.open('test/srx-20-sample.srx') { |f| Srx::Data.from_io(f) }
-    Srx::Engine.new(data)
-  end
 end
