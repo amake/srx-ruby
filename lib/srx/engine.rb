@@ -80,6 +80,8 @@ module Srx
           break unless m
 
           pos = m.end(0)
+          pos += 1 if pos == m.begin(0)
+
           results << [pos, rule] if rule.after_break.nil? || m.post_match.start_with?(rule.after_break)
         elsif rule.after_break
           m = rule.after_break.match(str, pos)
