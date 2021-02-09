@@ -5,12 +5,8 @@ require 'srx'
 
 require 'minitest/autorun'
 
-def sample_data
-  File.open('test/srx-20-sample.srx') { |f| Srx::Data.from_io(f) }
-end
-
 def sample_engine
-  Srx::Engine.new(sample_data)
+  Srx::Engine.new(Srx::Data.default)
 end
 
 def segment(text:, language:, **_kwargs)

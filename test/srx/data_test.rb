@@ -4,12 +4,12 @@ require 'test_helper'
 
 module Srx
   class DataTest < Minitest::Test
-    def test_load
-      refute_nil(sample_data)
+    def test_default
+      refute_nil(Data.default)
     end
 
     def test_header
-      srx = sample_data
+      srx = Data.default
 
       assert(srx.segments_subflows?)
       assert(srx.cascade?)
@@ -22,7 +22,7 @@ module Srx
     end
 
     def test_languagerules
-      language_rules = sample_data.language_rules
+      language_rules = Data.default.language_rules
       refute(language_rules.empty?)
 
       default = language_rules.first
@@ -33,7 +33,7 @@ module Srx
     end
 
     def test_rule
-      rule = sample_data.language_rules.first.rules.first
+      rule = Data.default.language_rules.first.rules.first
 
       refute(rule.break?)
       assert_equal(/^\s*[0-9]+\./, rule.before_break)
@@ -41,12 +41,12 @@ module Srx
     end
 
     def test_maprules
-      map_rules = sample_data.map_rules
+      map_rules = Data.default.map_rules
       refute(map_rules.empty?)
     end
 
     def test_languagemap
-      english = sample_data.map_rules.first
+      english = Data.default.map_rules.first
 
       assert_equal('English', english.language_rule_name)
       assert_equal(/[Ee][Nn].*/, english.language_pattern)

@@ -6,8 +6,7 @@ require 'srx'
 require 'benchmark'
 require 'memory_profiler'
 
-srx_file_path = File.expand_path('../test/srx-20-sample.srx', __dir__)
-data = Srx::Data.from_file(path: srx_file_path)
+data = Srx::Data.default
 engine = Srx::Engine.new(data)
 
 text = File.open(File.expand_path('../LICENSE.txt', __dir__), &:read).strip.then { |t| Srx::Util.unwrap(t) }

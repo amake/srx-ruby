@@ -22,9 +22,17 @@ module Srx
   # SRX data
   class Data < XmlWrapper
     class << self
+      # Default SRX rules
+      #
+      # @return [Data]
+      def default
+        from_file(path: File.expand_path('srx-20-sample.srx', __dir__))
+      end
+
       # @param path [String]
+      # @return [Data]
       def from_file(path:)
-        File.open(path) { |f| from_io(f) }
+        File.open(path, &method(:from_io))
       end
 
       # @param io [IO]
