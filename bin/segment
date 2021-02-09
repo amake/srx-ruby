@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'optparse'
+require 'srx'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$PROGRAM_NAME} [options] [file ...]"
+
+  opts.on('-sFILE', '--srx FILE', 'SRX file (optional)')
+  opts.on('-lLANGUAGE', '--language LANGUAGE', 'Language of input text (default: en)')
+end.parse!(into: options)
+
+language = options[:language] || 'en'
+data = if options[:srx]
+         Srx::Data.from_file(path: options[:srx])
+       else
+         Srx::Data.default
+       end
+engine = Srx::Engine.new(data)
+
+begin
+  text = ARGF.read
+  puts engine.segment(text, lang_code: language)
+rescue Interrupt
+  exit(1)
+end
