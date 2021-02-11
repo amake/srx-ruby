@@ -92,5 +92,22 @@ module Srx
         engine.segment("<i>Hello, world!</i> What's up?", lang_code: 'en')
       )
     end
+
+    def test_formathandle
+      engine = sample_engine(format: :html)
+
+      assert_equal(
+        ['Hello, world!', "<i> What's up?</i>"],
+        engine.segment("Hello, world!<i> What's up?</i>", lang_code: 'en')
+      )
+      assert_equal(
+        ['Hello, world!<img />', " What's up?"],
+        engine.segment("Hello, world!<img /> What's up?", lang_code: 'en')
+      )
+      assert_equal(
+        ['<i>Hello, world!</i>', " What's up?"],
+        engine.segment("<i>Hello, world!</i> What's up?", lang_code: 'en')
+      )
+    end
   end
 end

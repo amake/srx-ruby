@@ -139,6 +139,12 @@ module Srx
         markup_pos, markup = markups.first
         break unless start + segment.length >= markup_pos
 
+        if start + segment.length == markup_pos
+          break if !@data.include_start_formatting? && Markup::START_TAG.match?(markup)
+          break if !@data.include_end_formatting? && Markup::END_TAG.match?(markup)
+          break if !@data.include_isolated_formatting? && Markup::EMPTY_ELEM_TAG.match?(markup)
+        end
+
         segment.insert(markup_pos - start, markup)
         markups.shift
       end
