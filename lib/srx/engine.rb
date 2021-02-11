@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'English'
-
 module Srx
   # Engine for performing SRX segmenting
   class Engine
@@ -12,14 +10,7 @@ module Srx
     # @param markup [Regexp]
     def initialize(data, format: :text)
       @data = data
-      @markup_pattern =
-        case format
-        when :text then nil
-        when :html, :xml
-          require_relative 'markup'
-          Markup::TAG
-        else raise(ArgumentError, "Unknown format: #{format}")
-        end
+      @format = Format.get(format)
     end
 
     # @param str [String]
@@ -29,7 +20,7 @@ module Srx
       results = []
       rules = rules(lang_code)
 
-      plain_text, markups = extract_markups(str)
+      plain_text, markups = @format.extract_markups(str)
 
       pos = 0
       breaks_by_pos(plain_text, rules).each do |break_pos, _|
@@ -112,23 +103,6 @@ module Srx
     end
 
     # @param str [String]
-    # @return [Array(String,Array<Array(Integer,String)>)] two items: 1) input
-    #   +str+ with markups removed, and 2) a list of markups, i.e. +[pos,
-    #   string]+ pairs
-    def extract_markups(str)
-      return [str, []] unless @markup_pattern
-
-      markups = []
-
-      plain_text = str.gsub(@markup_pattern) do |match|
-        markups << [$LAST_MATCH_INFO.begin(0), match]
-        ''
-      end
-
-      [plain_text, markups]
-    end
-
-    # @param str [String]
     # @param markups [Array<Array(Integer,String)>]
     # @param start [Integer] start offset of segment in str
     # @param finish [Integer] end offset of segment in str
@@ -139,17 +113,24 @@ module Srx
         markup_pos, markup = markups.first
         break unless start + segment.length >= markup_pos
 
-        if start + segment.length == markup_pos
-          break if !@data.include_start_formatting? && Markup::START_TAG.match?(markup)
-          break if !@data.include_end_formatting? && Markup::END_TAG.match?(markup)
-          break if !@data.include_isolated_formatting? && Markup::EMPTY_ELEM_TAG.match?(markup)
-        end
+        break if start + segment.length == markup_pos && !include_edge_formatting?(markup)
 
         segment.insert(markup_pos - start, markup)
         markups.shift
       end
 
       segment
+    end
+
+    # @param markup [String]
+    # @return [Boolean] whether to include the specified edge markup in the
+    #   current segment, in accordance with <formathandle> rules
+    def include_edge_formatting?(markup)
+      return false if !@data.include_start_formatting? && @format.start_formatting?(markup)
+      return false if !@data.include_end_formatting? && @format.end_formatting?(markup)
+      return false if !@data.include_isolated_formatting? && @format.isolated_formatting?(markup)
+
+      true
     end
   end
 end
