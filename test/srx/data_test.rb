@@ -11,7 +11,7 @@ module Srx
     def test_header
       srx = Data.default
 
-      assert(srx.segments_subflows?)
+      assert(srx.segment_subflows?)
       assert(srx.cascade?)
 
       refute_nil(srx.send(:format_handle, :start))

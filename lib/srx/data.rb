@@ -42,7 +42,7 @@ module Srx
       end
     end
 
-    def segments_subflows?
+    def segment_subflows?
       header['segmentsubflows'] == 'yes'
     end
 
