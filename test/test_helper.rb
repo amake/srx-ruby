@@ -5,8 +5,8 @@ require 'srx'
 
 require 'minitest/autorun'
 
-def sample_engine
-  Srx::Engine.new(Srx::Data.default)
+def sample_engine(*args, **kwargs)
+  Srx::Engine.new(Srx::Data.default, *args, **kwargs)
 end
 
 def segment(text:, language:, **_kwargs)

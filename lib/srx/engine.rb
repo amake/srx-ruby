@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'English'
+
 module Srx
   # Engine for performing SRX segmenting
   class Engine
@@ -7,8 +9,17 @@ module Srx
     attr_reader :data
 
     # @param data [Data]
-    def initialize(data)
+    # @param markup [Regexp]
+    def initialize(data, format: :text)
       @data = data
+      @markup_pattern =
+        case format
+        when :text then nil
+        when :html, :xml
+          require_relative 'markup'
+          Markup::TAG
+        else raise(ArgumentError, "Unknown format: #{format}")
+        end
     end
 
     # @param str [String]
@@ -18,9 +29,11 @@ module Srx
       results = []
       rules = rules(lang_code)
 
+      plain_text, markups = extract_markups(str)
+
       pos = 0
-      breaks_by_pos(str, rules).each do |break_pos, _|
-        results << str[pos...break_pos]
+      breaks_by_pos(plain_text, rules).each do |break_pos, _|
+        results << build_segment!(plain_text, markups, pos, break_pos)
         pos = break_pos
       end
 
@@ -96,6 +109,41 @@ module Srx
       end
 
       results
+    end
+
+    # @param str [String]
+    # @return [Array(String,Array<Array(Integer,String)>)] two items: 1) input
+    #   +str+ with markups removed, and 2) a list of markups, i.e. +[pos,
+    #   string]+ pairs
+    def extract_markups(str)
+      return [str, []] unless @markup_pattern
+
+      markups = []
+
+      plain_text = str.gsub(@markup_pattern) do |match|
+        markups << [$LAST_MATCH_INFO.begin(0), match]
+        ''
+      end
+
+      [plain_text, markups]
+    end
+
+    # @param str [String]
+    # @param markups [Array<Array(Integer,String)>]
+    # @param start [Integer] start offset of segment in str
+    # @param finish [Integer] end offset of segment in str
+    def build_segment!(str, markups, start, finish)
+      segment = str[start...finish]
+
+      until markups.empty?
+        markup_pos, markup = markups.first
+        break unless start + segment.length >= markup_pos
+
+        segment.insert(markup_pos - start, markup)
+        markups.shift
+      end
+
+      segment
     end
   end
 end

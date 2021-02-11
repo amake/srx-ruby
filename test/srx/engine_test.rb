@@ -6,6 +6,10 @@ module Srx
   class EngineTest < Minitest::Test
     def test_initialize
       refute_nil(sample_engine)
+
+      assert_raises(ArgumentError) do
+        sample_engine(format: :pdf)
+      end
     end
 
     def test_rule_names
@@ -70,6 +74,23 @@ module Srx
       assert_equal(<<~TXT.chomp, segments.last)
         \ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       TXT
+    end
+
+    def test_html
+      engine = sample_engine(format: :html)
+
+      assert_equal(
+        ['Hello <img alt="foo. bar"> world!'],
+        engine.segment('Hello <img alt="foo. bar"> world!', lang_code: 'en')
+      )
+      assert_equal(
+        ['Hello, world!', " <i>What's up?</i>"],
+        engine.segment("Hello, world! <i>What's up?</i>", lang_code: 'en')
+      )
+      assert_equal(
+        ['<i>Hello, world!</i>', " What's up?"],
+        engine.segment("<i>Hello, world!</i> What's up?", lang_code: 'en')
+      )
     end
   end
 end
