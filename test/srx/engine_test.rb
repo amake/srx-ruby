@@ -67,6 +67,11 @@ module Srx
         engine.segment('The U.K. Prime Minister, Mr. Blair, was seen out with his family today.', lang_code: 'zz')
       )
 
+      assert_equal(
+        ['こんにちは。', 'お元気ですか？', 'はい、元気です。'],
+        engine.segment('こんにちは。お元気ですか？はい、元気です。', lang_code: 'ja')
+      )
+
       text = File.open('LICENSE.txt', &:read).strip.then { |t| Util.unwrap(t) }
       segments = engine.segment(text, lang_code: 'en')
       assert_equal(11, segments.length)
