@@ -4,7 +4,7 @@
 require 'bundler/setup'
 require 'srx'
 require 'optparse'
-require 'benchmark'
+require 'memory_profiler'
 
 options = {}
 OptionParser.new do |opts|
@@ -20,11 +20,12 @@ data = if options[:srx]
        end
 engine = Srx::Engine.new(data)
 
-text = File.open(File.expand_path('../LICENSE.txt', __dir__), &:read).strip.then { |t| Srx::Util.unwrap(t) }
+license_text = File.open(File.expand_path('../LICENSE.txt', __dir__), &:read).strip.then { |t| Srx::Util.unwrap(t) }
 
-n = 1_000
+n = 100
 
-Benchmark.bm do |x|
-  x.report('LICENSE.txt (en)') { n.times { engine.segment(text, lang_code: 'en') } }
-  x.report('LICENSE.txt (zz)') { n.times { engine.segment(text, lang_code: 'zz') } }
+report = MemoryProfiler.report do
+  n.times { engine.segment(license_text, lang_code: 'en') }
 end
+
+report.pretty_print
