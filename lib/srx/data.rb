@@ -144,6 +144,10 @@ module Srx
         def break?
           @break
         end
+
+        def inspect
+          "Rule[break=#{break?},before=#{before_break},after=#{after_break}]"
+        end
       end
     end
 
