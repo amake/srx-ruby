@@ -11,6 +11,7 @@ OptionParser.new do |opts|
   opts.banner = "Usage: #{$PROGRAM_NAME} [options]"
 
   opts.on('-sFILE', '--srx FILE', 'SRX file (optional)')
+  opts.on('-fFORMAT', '--format FORMAT', 'Format of input text (default: text)')
 end.parse!(into: options)
 
 data = if options[:srx]
@@ -18,7 +19,8 @@ data = if options[:srx]
        else
          Srx::Data.default
        end
-engine = Srx::Engine.new(data)
+format = options[:format]&.to_sym || :text
+engine = Srx::Engine.new(data, format: format)
 
 license_text = File.open(File.expand_path('../LICENSE.txt', __dir__), &:read).strip.then { |t| Srx::Util.unwrap(t) }
 
