@@ -88,7 +88,7 @@ TXT
 n = 100
 
 Benchmark.bm do |x|
-  x.report('LICENSE.txt (en)') { n.times { engine.segment(license_text, lang_code: 'en') } }
-  x.report('LICENSE.txt (zz)') { n.times { engine.segment(license_text, lang_code: 'zz') } }
-  x.report('Golden Rules (en)') { n.times { engine.segment(gold_text, lang_code: 'en') } }
+  x.report('LICENSE.txt (en)') { n.times { engine.segment(license_text, language: 'en') } }
+  x.report('LICENSE.txt (zz)') { n.times { engine.segment(license_text, language: 'zz') } }
+  x.report('Golden Rules (en)') { n.times { engine.segment(gold_text, language: 'en') } }
 end

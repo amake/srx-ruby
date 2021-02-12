@@ -27,7 +27,7 @@ license_text = File.open(File.expand_path('../LICENSE.txt', __dir__), &:read).st
 n = 100
 
 report = MemoryProfiler.report do
-  n.times { engine.segment(license_text, lang_code: 'en') }
+  n.times { engine.segment(license_text, language: 'en') }
 end
 
 report.pretty_print

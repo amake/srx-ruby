@@ -14,11 +14,11 @@ module Srx
     end
 
     # @param str [String]
-    # @param lang_code [String]
+    # @param language [String]
     # @return [Array<String>]
-    def segment(str, lang_code:)
+    def segment(str, language:)
       results = []
-      rules = rules(lang_code)
+      rules = rules(language)
 
       plain_text, markups = @format.extract_markups(str)
 
@@ -31,10 +31,10 @@ module Srx
       results
     end
 
-    # @param lang_code [String]
+    # @param language [String]
     # @return [Array<Data::Rule>]
-    def rules(lang_code)
-      names = rule_names(lang_code)
+    def rules(language)
+      names = rule_names(language)
 
       rule_map = @data.language_rules.map do |rule|
         [rule.name, rule]
@@ -43,11 +43,11 @@ module Srx
       names.flat_map { |name| rule_map[name].rules }
     end
 
-    # @param lang_code [String]
+    # @param language [String]
     # @return [Array<String>]
-    def rule_names(lang_code)
+    def rule_names(language)
       @data.map_rules.map do |lang_map|
-        next unless lang_map.language_pattern.match?(lang_code)
+        next unless lang_map.language_pattern.match?(language)
 
         break [lang_map.language_rule_name] unless @data.cascade?
 

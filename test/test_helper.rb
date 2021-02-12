@@ -10,5 +10,5 @@ def sample_engine(*args, **kwargs)
 end
 
 def segment(text:, language:, **_kwargs)
-  sample_engine.segment(text, lang_code: language).map(&:strip)
+  sample_engine.segment(text, language: language).map(&:strip)
 end

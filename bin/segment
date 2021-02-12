@@ -22,7 +22,7 @@ engine = Srx::Engine.new(data)
 
 begin
   text = ARGF.read
-  puts engine.segment(text, lang_code: language)
+  puts engine.segment(text, language: language)
 rescue Interrupt
   exit(1)
 end
