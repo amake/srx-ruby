@@ -3,10 +3,22 @@
 
 require 'bundler/setup'
 require 'srx'
+require 'optparse'
 require 'benchmark'
 require 'memory_profiler'
 
-data = Srx::Data.default
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$PROGRAM_NAME} [options]"
+
+  opts.on('-sFILE', '--srx FILE', 'SRX file (optional)')
+end.parse!(into: options)
+
+data = if options[:srx]
+         Srx::Data.from_file(path: options[:srx])
+       else
+         Srx::Data.default
+       end
 engine = Srx::Engine.new(data)
 
 text = File.open(File.expand_path('../LICENSE.txt', __dir__), &:read).strip.then { |t| Srx::Util.unwrap(t) }
