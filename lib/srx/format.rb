@@ -3,6 +3,7 @@
 require_relative 'format/base_format'
 require_relative 'format/text'
 require_relative 'format/xml'
+require_relative 'format/html'
 
 module Srx
   # Format-specific data and logic
@@ -10,7 +11,7 @@ module Srx
     FORMATS = {
       text: Text.new,
       xml: Xml.new,
-      html: Xml.new # TODO: specialize for HTML
+      html: Html.new
     }.freeze
 
     class << self
