@@ -13,7 +13,10 @@ This gem provides facilities for reading SRX files and an engine for performing
 segmentation.
 
 Only a minimal rule set is supplied by default; for actual usage you are
-encouraged to supply your own SRX rules.
+encouraged to supply your own SRX rules. One such set of rules is that from
+[LanguageTool](https://languagetool.org/); this is conveniently packaged into a
+companion gem:
+[srx-languagetool-ruby](https://github.com/amake/srx-languagetool-ruby).
 
 ## What's different about this gem?
 
@@ -43,7 +46,7 @@ Some disadvantages:
   test](https://github.com/diasks2/pragmatic_segmenter#comparison-of-segmentation-tools-libraries-and-algorithms),
   scoring 47% (English) and 48% (others) with the default rules. However you can
   improve on that with better rules such as
-  [LanguageTool's](https://github.com/languagetool-org/languagetool/blob/05707300df14668e97d064811931e0668f2b695b/languagetool-core/src/main/resources/org/languagetool/resource/segment.srx).
+  [LanguageTool's](https://github.com/amake/srx-languagetool-ruby).
 
 ## Installation
 
