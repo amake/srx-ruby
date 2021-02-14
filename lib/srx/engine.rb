@@ -31,6 +31,8 @@ module Srx
       results
     end
 
+    private
+
     # @param language [String]
     # @return [Array<Data::Rule>]
     def rules(language)
