@@ -15,7 +15,7 @@ module Srx
     }.freeze
 
     class << self
-      # @param format [Symbol]
+      # @param format [Symbol] see keys of {FORMATS} for accepted values
       # @return [BaseFormat]
       def get(format)
         raise(ArgumentError, "Unknown format: #{format}") unless FORMATS.key?(format)

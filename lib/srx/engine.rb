@@ -7,7 +7,7 @@ module Srx
     attr_reader :data
 
     # @param data [Data]
-    # @param markup [Regexp]
+    # @param format [Symbol] see {Format#get}
     def initialize(data, format: :text)
       @data = data
       @format = Format.get(format)
