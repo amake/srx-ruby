@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Srx
   class IcuRegexTest < Minitest::Test
-    def test_to_ruby
+    def test_to_ruby_hex
       assert_equal(%q(\xff61), IcuRegex.to_ruby(%q(\xff61)))
       assert_equal(%q(\u{ff61}), IcuRegex.to_ruby(%q(\x{ff61})))
       assert_equal(%q(\u{ff6}), IcuRegex.to_ruby(%q(\x{ff6})))
@@ -25,8 +25,16 @@ module Srx
       )
     end
 
+    def test_to_ruby_oct
+      assert_equal(%q(\0), IcuRegex.to_ruby(%q(\0)))
+      assert_equal(%q(\u{1}), IcuRegex.to_ruby(%q(\01)))
+      assert_equal(%q(\u{1f}), IcuRegex.to_ruby(%q(\037)))
+      assert_equal(%q(\u{ff}), IcuRegex.to_ruby(%q(\0377)))
+      assert_equal(%q(\0400), IcuRegex.to_ruby(%q(\0400)))
+    end
+
     def test_compile
-      assert_equal(/\u{ff61}/, IcuRegex.compile(%q(\x{ff61})))
+      assert_equal(/\u{ff61}\u{ff}/, IcuRegex.compile(%q(\x{ff61}\0377)))
     end
   end
 end
