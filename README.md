@@ -110,7 +110,7 @@ input = 'foo <bar baz="a. b."> bazinga'
 Srx::Engine.new(Data.default).segment(input, language: 'en')
 #=> ["foo <bar baz=\"a.", " b.\"> bazinga"]
 
-Srx::Engine.new(Data.deefault, format: :xml).segment(input, language: 'en')
+Srx::Engine.new(Data.default, format: :xml).segment(input, language: 'en')
 #=> ["foo <bar baz=\"a. b.\"> bazinga"]
 ```
 
