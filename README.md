@@ -48,6 +48,20 @@ Some disadvantages:
   improve on that with better rules such as
   [LanguageTool's](https://github.com/amake/srx-languagetool-ruby).
 
+## Caveats
+
+The SRX spec calls for [ICU regular
+expressions](https://unicode-org.github.io/icu/userguide/strings/regexp.html),
+but this library uses standard [Ruby
+regexp](https://ruby-doc.org/core-2.7.0/Regexp.html). Please note:
+
+- Not all ICU syntax is supported
+- For supported syntax, in some cases the meaning of a regex may differ when
+  interpreted as Ruby regexp
+- The following ICU syntax is supported through translation to Ruby syntax:
+  - `\x{hhhh}` → `\u{hhhh}`
+  - `\0ooo` → `\u{hhhh}`
+
 ## Installation
 
 Add this line to your application's Gemfile:
