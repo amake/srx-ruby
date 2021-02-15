@@ -68,7 +68,7 @@
                 \xff01: Fullwidth exclamation mark
                 -->
                 <rule break="yes">
-                    <beforebreak>[\xff61\x3002\xff0e\xff1f\xff01]+</beforebreak>
+                    <beforebreak>[\x{ff61}\x{3002}\x{ff0e}\x{ff1f}\x{ff01}]+</beforebreak>
                     <afterbreak></afterbreak>
                 </rule>
             </languagerule>

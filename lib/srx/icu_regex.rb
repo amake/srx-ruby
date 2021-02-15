@@ -3,7 +3,7 @@
 module Srx
   # Utilities for handling SRX (ICU) regular expressions
   module IcuRegex
-    HEX_PATTERN = /(?<!\\)(?:\\\\)*\\x(?<hex>[a-f0-9]{4}|\{[a-f0-9]{4}\})/i.freeze
+    HEX_PATTERN = /(?<!\\)(?:\\\\)*\\x(?<hex>\{[a-f0-9]{1,6}\})/i.freeze
 
     class << self
       # @param icu_regex [String]

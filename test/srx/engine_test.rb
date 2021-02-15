@@ -31,7 +31,7 @@ module Srx
         engine.send(:rules, 'en').map(&:after_break)
       )
       assert_equal(
-        [/[\uff61\u3002\uff0e\uff1f\uff01]+/, /^\s*[0-9]+\./, nil, /[\.\?!]+/],
+        [/[\u{ff61}\u{3002}\u{ff0e}\u{ff1f}\u{ff01}]+/, /^\s*[0-9]+\./, nil, /[\.\?!]+/],
         engine.send(:rules, 'JA').map(&:before_break)
       )
       assert_equal(
