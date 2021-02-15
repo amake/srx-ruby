@@ -10,7 +10,6 @@ module Srx
       assert_equal(%q(\u{ff6}), IcuRegex.to_ruby(%q(\x{ff6})))
       assert_equal(%q(\u{FF61}), IcuRegex.to_ruby(%q(\x{FF61})))
       assert_equal(%q(\xzf61), IcuRegex.to_ruby(%q(\xzf61)))
-      assert_equal('\\xff61', IcuRegex.to_ruby('\\xff61'))
 
       assert_equal(%q(\u{1}), IcuRegex.to_ruby(%q(\x{1})))
       assert_equal(%q(\u{10}), IcuRegex.to_ruby(%q(\x{10})))
