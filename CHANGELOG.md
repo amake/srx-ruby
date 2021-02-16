@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.3.0] - 2021-02-16
+
 - All `Srx::Engine` methods except `#segment` are now private
 - ICU regex syntax `\xhhhh` is now no longer converted to Ruby regex, as this
   syntax was not correct; it now must be `\x{hhhh}`
