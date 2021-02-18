@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.4.0] - 2021-02-18
+
+- Optimize memory usage
+
 ## [0.3.0] - 2021-02-16
 
 - All `Srx::Engine` methods except `#segment` are now private
