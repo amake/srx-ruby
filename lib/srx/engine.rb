@@ -65,13 +65,13 @@ module Srx
     #   position. Note that the final break will always be at the end of the
     #   string and may not have an associated rule.
     def breaks_by_pos(str, rules)
-      rules
-        .flat_map { |rule| all_matches(str, rule) }
-        .group_by(&:first)
-        .transform_values { |pairs| pairs.first.last }
-        .select { |_pos, rule| rule.break? }
-        .sort_by(&:first)
-        .tap { |breaks| breaks << [str.length] unless breaks&.last&.first == str.length }
+      grouped = rules.flat_map { |rule| all_matches(str, rule) }
+                     .group_by(&:first)
+      grouped.transform_values! { |pairs| pairs.first.last }
+      grouped.select! { |_pos, rule| rule.break? }
+      result = grouped.sort_by(&:first)
+      result << [str.length] unless result.last&.first == str.length
+      result
     end
 
     # @param str [String]
