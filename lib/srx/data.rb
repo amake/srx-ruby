@@ -43,23 +43,23 @@ module Srx
     end
 
     def segment_subflows?
-      header['segmentsubflows'] == 'yes'
+      @segment_subflows ||= header['segmentsubflows'] == 'yes'
     end
 
     def cascade?
-      header['cascade'] == 'yes'
+      @cascade ||= header['cascade'] == 'yes'
     end
 
     def include_start_formatting?
-      include_formatting?(:start)
+      @include_start_formatting ||= include_formatting?(:start)
     end
 
     def include_end_formatting?
-      include_formatting?(:end)
+      @include_end_formatting ||= include_formatting?(:end)
     end
 
     def include_isolated_formatting?
-      include_formatting?(:isolated)
+      @include_isolated_formatting ||= include_formatting?(:isolated)
     end
 
     # @return [Array<LanguageRule>]
@@ -108,7 +108,7 @@ module Srx
     class LanguageRule < XmlWrapper
       # @return [String]
       def name
-        @xml['languagerulename']
+        @name ||= @xml['languagerulename']
       end
 
       # @return [Array<Rule>]
@@ -155,7 +155,7 @@ module Srx
     class LanguageMap < XmlWrapper
       # @return [String]
       def language_rule_name
-        @xml['languagerulename']
+        @language_rule_name ||= @xml['languagerulename']
       end
 
       # @return [Regexp]
