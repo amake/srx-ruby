@@ -136,7 +136,7 @@ module Srx
             IcuRegex.compile(pattern) if pattern
           end
 
-          @after_break ||= xpath(:afterbreak).first&.text.then do |pattern|
+          @after_break = xpath(:afterbreak).first&.text.then do |pattern|
             IcuRegex.compile(pattern) if pattern
           end
         end
