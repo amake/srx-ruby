@@ -58,7 +58,6 @@ module Srx
     end
 
     # @param str [String]
-    # @param pos [Integer] the position to start searching from
     # @param rules [Array<Data::LanguageRule::Rule>]
     # @return [Array<Array(Integer,Data::LanguageRule::Rule)>] an array of pairs
     #   of 1) the position of a break, and 2) the rule that matched at that
