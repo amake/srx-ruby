@@ -130,7 +130,7 @@ module Srx
           # Eagerly load everything for this class because before_break and
           # after_break can be legitimately nil, so lazy loading gets ugly.
 
-          @break = @xml['break'].nil? || @xml['break'] == 'yes'
+          @break = @xml['break'].then { |brk| brk.nil? || brk == 'yes' }
 
           @before_break = xpath(:beforebreak).first&.text.then do |pattern|
             IcuRegex.compile(pattern) if pattern
