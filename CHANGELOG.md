@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.5.0] - 2021-02-25
+
+- When `nil` is supplied for the `language` parameter, it is now treated as the
+  empty string for rule-matching purposes (previously it would match no rules)
+
 ## [0.4.0] - 2021-02-18
 
 - Optimize memory usage
