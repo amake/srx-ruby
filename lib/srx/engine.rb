@@ -45,9 +45,11 @@ module Srx
       names.flat_map { |name| rule_map[name].rules }
     end
 
-    # @param language [String]
+    # @param language [String] nil treated as empty string
     # @return [Array<String>]
     def rule_names(language)
+      language ||= ''
+
       @data.map_rules.map do |lang_map|
         next unless lang_map.language_pattern.match?(language)
 

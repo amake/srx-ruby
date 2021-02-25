@@ -17,6 +17,7 @@ module Srx
       assert_equal(%w[English Default], engine.send(:rule_names, 'en'))
       assert_equal(%w[Japanese Default], engine.send(:rule_names, 'JA'))
       assert_equal(%w[Default], engine.send(:rule_names, 'zh'))
+      assert_equal(%w[Default], engine.send(:rule_names, nil))
     end
 
     # rubocop:disable Style/RedundantRegexpEscape
@@ -65,6 +66,11 @@ module Srx
       assert_equal(
         ['The U.K.', ' Prime Minister, Mr.', ' Blair, was seen out with his family today.'],
         engine.segment('The U.K. Prime Minister, Mr. Blair, was seen out with his family today.', language: 'zz')
+      )
+
+      assert_equal(
+        ['The U.K.', ' Prime Minister, Mr.', ' Blair, was seen out with his family today.'],
+        engine.segment('The U.K. Prime Minister, Mr. Blair, was seen out with his family today.', language: nil)
       )
 
       assert_equal(
