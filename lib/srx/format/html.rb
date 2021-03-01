@@ -9,7 +9,7 @@ module Srx
     #
     # @see https://www.w3.org/TR/xml/
     class Html < Xml
-      START_TAG_CAPTURE = /<(?<name>#{Xml::NAME})(?:#{Xml::SPACE}#{Xml::ATTRIBUTE})*#{Xml::SPACE}?>/.freeze
+      START_TAG = /<(?<name>#{Xml::NAME})(?:#{Xml::SPACE}#{ATTRIBUTE})*#{Xml::SPACE}?>/.freeze
 
       # A set of HTML tags that are "void elements", meaning they do not need a
       # paired closing tag.
@@ -24,7 +24,7 @@ module Srx
       ].freeze
 
       def start_formatting?(markup)
-        START_TAG_CAPTURE.match(markup) do |m|
+        START_TAG.match(markup) do |m|
           !VOID_ELEMENTS.include?(m['name'])
         end
       end
@@ -32,7 +32,7 @@ module Srx
       def isolated_formatting?(markup)
         return true if super(markup)
 
-        START_TAG_CAPTURE.match(markup) do |m|
+        START_TAG.match(markup) do |m|
           VOID_ELEMENTS.include?(m['name'])
         end
       end
