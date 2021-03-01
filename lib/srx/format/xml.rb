@@ -27,14 +27,7 @@ module Srx
       TAG = /#{START_TAG}|#{END_TAG}|#{EMPTY_ELEM_TAG}/.freeze
 
       def extract_markups(str)
-        markups = []
-
-        plain_text = str.gsub(TAG) do |match|
-          markups << [$LAST_MATCH_INFO.begin(0), match]
-          ''
-        end
-
-        [plain_text, markups]
+        extract_markups_by_pattern(str, TAG)
       end
 
       def start_formatting?(markup)
@@ -47,6 +40,21 @@ module Srx
 
       def isolated_formatting?(markup)
         EMPTY_ELEM_TAG.match?(markup)
+      end
+
+      protected
+
+      # @param str [String]
+      # @param pattern [Regexp]
+      def extract_markups_by_pattern(str, pattern)
+        markups = []
+
+        plain_text = str.gsub(pattern) do |match|
+          markups << [$LAST_MATCH_INFO.begin(0), match]
+          ''
+        end
+
+        [plain_text, markups]
       end
     end
   end
