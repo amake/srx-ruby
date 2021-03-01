@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Improved HTML parsing accuracy
+
 ## [0.5.0] - 2021-02-25
 
 - When `nil` is supplied for the `language` parameter, it is now treated as the
