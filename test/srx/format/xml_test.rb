@@ -47,6 +47,11 @@ module Srx
       def test_start_formatting?
         sut = Xml.new
         assert(sut.start_formatting?('<foo>'))
+        assert(sut.start_formatting?('<foo bar="baz">'))
+        assert(sut.start_formatting?("<foo bar='baz'>"))
+
+        refute(sut.start_formatting?('<foo bar=baz>'))
+        refute(sut.start_formatting?('<foo bar>'))
         refute(sut.start_formatting?('</foo>'))
         refute(sut.start_formatting?('<foo/>'))
       end
@@ -61,6 +66,11 @@ module Srx
       def test_isolated_formatting?
         sut = Xml.new
         assert(sut.isolated_formatting?('<foo/>'))
+        assert(sut.isolated_formatting?('<foo bar="baz"/>'))
+        assert(sut.isolated_formatting?("<foo bar='baz'/>"))
+
+        refute(sut.isolated_formatting?('<foo bar=baz />'))
+        refute(sut.isolated_formatting?('<foo bar />'))
         refute(sut.isolated_formatting?('<foo>'))
         refute(sut.isolated_formatting?('</foo>'))
       end
