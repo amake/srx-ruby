@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.6.0] - 2021-04-15
+
 - Improved HTML parsing accuracy
 
 ## [0.5.0] - 2021-02-25
