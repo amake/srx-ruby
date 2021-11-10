@@ -46,6 +46,7 @@ module Srx
 
       # @param str [String]
       # @param pattern [Regexp]
+      # @return [Array(String,Array<Array(Integer,String)>)]
       def extract_markups_by_pattern(str, pattern)
         markups = []
 
