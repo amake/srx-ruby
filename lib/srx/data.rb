@@ -32,7 +32,10 @@ module Srx
       # @param path [String]
       # @return [Data]
       def from_file(path:)
-        File.open(path, &method(:from_io))
+        # Solargraph incorrectly infers the result of the following to be [IO]
+        # if written as RuboCop desires; reported as
+        # https://github.com/castwide/solargraph/issues/500
+        File.open(path, &method(:from_io)) # rubocop:disable Performance/MethodObjectAsBlock
       end
 
       # @param io [IO]
