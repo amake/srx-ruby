@@ -19,3 +19,5 @@ jobs:
       run: bundle exec solargraph typecheck --level typed
     - name: Unit tests
       run: bundle exec rake
+    - name: Doc check
+      run: bundle exec yard | awk '/\[warn\]/ {w++}; {print}; END {exit w}'
