@@ -78,7 +78,7 @@ module Srx
         engine.segment('こんにちは。お元気ですか？はい、元気です。', language: 'ja')
       )
 
-      text = File.open('LICENSE.txt', &:read).strip.then { |t| Util.unwrap(t) }
+      text = File.read('LICENSE.txt').strip.then { |t| Util.unwrap(t) }
       segments = engine.segment(text, language: 'en')
       assert_equal(11, segments.length)
       assert_equal("The MIT License (MIT)\n", segments.first)
