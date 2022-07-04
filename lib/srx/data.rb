@@ -32,16 +32,22 @@ module Srx
       # @param path [String]
       # @return [Data]
       def from_file(path:)
-        # Solargraph incorrectly infers the result of the following to be [IO]
-        # if written as RuboCop desires; reported as
-        # https://github.com/castwide/solargraph/issues/500
-        File.open(path, &method(:from_io)) # rubocop:disable Performance/MethodObjectAsBlock
+        # Solargraph incorrectly infers the result of the following to be [File]
+        noop(File.open(path) { |io| from_io(io) })
       end
 
       # @param io [IO]
       # @return [Data]
       def from_io(io)
         new(Nokogiri::XML.parse(io))
+      end
+
+      private
+
+      # This is a really, really dumb workaround for the lack of a way to override
+      # Solargraph's type inference
+      def noop(arg)
+        arg
       end
     end
 
