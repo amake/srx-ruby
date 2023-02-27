@@ -28,13 +28,4 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'nokogiri', '~>1.11'
-
-  spec.add_development_dependency 'byebug'
-  spec.add_development_dependency 'memory_profiler'
-  spec.add_development_dependency 'minitest'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec-expectations'
-  spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'rubocop-performance'
-  spec.add_development_dependency 'solargraph'
 end
