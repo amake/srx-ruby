@@ -34,7 +34,7 @@ module Srx
     private
 
     # @param language [String]
-    # @return [Array<Data::Rule>]
+    # @return [Array<Data::LanguageRule::Rule>]
     def rules(language)
       names = rule_names(language)
 
