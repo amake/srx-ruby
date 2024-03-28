@@ -23,7 +23,7 @@ module Srx
       plain_text, markups = @format.extract_markups(str)
 
       pos = 0
-      breaks_by_pos(plain_text, rules).each do |break_pos, _|
+      breaks_by_pos(plain_text, rules).each do |(break_pos, _)|
         results << build_segment!(plain_text, markups, pos, break_pos)
         pos = break_pos
       end

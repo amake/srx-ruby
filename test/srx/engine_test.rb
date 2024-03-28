@@ -20,7 +20,6 @@ module Srx
       assert_equal(%w[Default], engine.send(:rule_names, nil))
     end
 
-    # rubocop:disable Style/RedundantRegexpEscape
     def test_rules
       engine = sample_engine
       assert_equal(
@@ -48,7 +47,6 @@ module Srx
         engine.send(:rules, 'zh').map(&:after_break)
       )
     end
-    # rubocop:enable Style/RedundantRegexpEscape
 
     def test_segment
       engine = sample_engine
