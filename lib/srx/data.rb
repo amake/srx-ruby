@@ -134,7 +134,7 @@ module Srx
         attr_reader :after_break
 
         def initialize(xml)
-          super(xml)
+          super
 
           # Eagerly load everything for this class because before_break and
           # after_break can be legitimately nil, so lazy loading gets ugly.
