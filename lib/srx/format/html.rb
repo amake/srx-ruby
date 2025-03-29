@@ -40,7 +40,7 @@ module Srx
       end
 
       def start_formatting?(markup)
-        START_TAG.match(markup) do |m|
+        !!START_TAG.match(markup) do |m|
           !VOID_ELEMENTS.include?(m['name'])
         end
       end

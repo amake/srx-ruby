@@ -39,7 +39,7 @@ module Srx
       # @param io [IO]
       # @return [Data]
       def from_io(io)
-        new(Nokogiri::XML.parse(io))
+        new(Nokogiri::XML::Document.parse(io))
       end
 
       private
