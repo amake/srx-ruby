@@ -33,6 +33,7 @@ module Srx
       # @return [Data]
       def from_file(path:)
         # Solargraph incorrectly infers the result of the following to be [File]
+        # https://github.com/castwide/solargraph/issues/500
         noop(File.open(path) { |io| from_io(io) })
       end
 
